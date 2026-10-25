@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meus achadinhos</title>
+<style>
+:root{--bg:#fff7d6;--card:#ffffff;--text:#1f2937;--muted:#6b7280;--accent:#2d3277;--btn:#ffe600;--btn-text:#1f2937;--border:#f1e6a8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14151f;--card:#1e2030;--text:#f3f4f6;--muted:#9ca3af;--accent:#ffe600;--border:#2c2f45}}
+:root[data-theme="dark"]{--bg:#14151f;--card:#1e2030;--text:#f3f4f6;--muted:#9ca3af;--accent:#ffe600;--border:#2c2f45}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+main{max-width:480px;margin:0 auto;padding:28px 16px 40px}
+header{text-align:center;margin-bottom:22px}
+.avatar{width:84px;height:84px;border-radius:50%;background:var(--btn);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 12px;border:3px solid var(--accent)}
+h1{font-size:1.3rem;margin:0 0 4px;color:var(--accent)}
+header p{margin:0;color:var(--muted);font-size:.95rem}
+.list{display:flex;flex-direction:column;gap:12px}
+.item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.item:active{transform:scale(.98)}
+.emoji{flex:0 0 72px;height:72px;overflow:hidden;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:32px}
+.info{flex:1;min-width:0}
+.name{font-weight:600;font-size:1rem;line-height:1.25}
+.price{color:var(--muted);font-size:.9rem;margin-top:2px}
+.go{background:var(--btn);color:var(--btn-text);font-weight:700;font-size:.8rem;padding:9px 12px;border-radius:999px;white-space:nowrap}
+footer{text-align:center;color:var(--muted);font-size:.75rem;margin-top:26px;line-height:1.5}
+.emoji img{width:100%;height:100%;object-fit:contain;display:block}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="avatar">🛍️</div>
+<h1>Meus achadinhos</h1>
+<p>Toque no produto para comprar no Mercado Livre</p>
+</header>
+<div class="list" id="list"></div>
+<footer>Links de afiliado: se você comprar por aqui, eu posso receber uma comissão, sem custo extra para você.</footer>
+</main>
+<script src="produtos.js"></script>
+<script>
+var list = document.getElementById("list");
+produtos.forEach(function(p){
+  var a = document.createElement("a");
+  a.className = "item";
+  a.href = p.link;
+  a.target = "_blank";
+  a.rel = "noopener sponsored";
+  a.innerHTML = '<div class="emoji"></div><div class="info"><div class="name"></div><div class="price"></div></div><div class="go">Comprar</div>';
+  var box = a.querySelector(".emoji");
+  if (p.foto) { var im = document.createElement("img"); im.src = p.foto; im.alt = p.nome; box.appendChild(im); } else { box.textContent = p.emoji || "🛒"; }
+  a.querySelector(".name").textContent = p.nome;
+  a.querySelector(".price").textContent = p.preco;
+  list.appendChild(a);
+});
+</script>
+</body>
+</html>
